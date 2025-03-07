@@ -60,6 +60,7 @@ static struct h_error execute_create_variable(const struct h_instr* instr, struc
 static struct h_error execute_variable(const struct h_instr* instr, struct h_runtime* runtime);
 static struct h_error execute_real(const struct h_instr* instr, struct h_runtime* runtime);
 static struct h_error execute_imag(const struct h_instr* instr, struct h_runtime* runtime);
+static struct h_error execute_pow(const struct h_instr* instr, struct h_runtime* runtime);
 
 static struct h_error execute_instr(const struct h_instr* instr, struct h_runtime* runtime)
 {
@@ -186,6 +187,10 @@ static struct h_error execute_instr(const struct h_instr* instr, struct h_runtim
 
 	case H_IMAG:
 		continue_or_return_if_error(execute_imag(instr, runtime));
+		break;
+
+	case H_POW:
+		continue_or_return_if_error(execute_pow(instr, runtime));
 		break;
 
 	default:
@@ -834,6 +839,27 @@ static struct h_error execute_imag(const struct h_instr* instr, struct h_runtime
 	struct h_value result_value = (struct h_value) {
 		.type         = H_NUMBER,
 		.value.number = cimag(value0.value.value.number),
+	};
+
+	h_value_stack_push(&runtime->value_stack, &result_value);
+
+	return_ok();
+}
+
+static struct h_error execute_pow(const struct h_instr* instr, struct h_runtime* runtime)
+{
+	struct h_value_stack_pop_result value0 = h_value_stack_pop(&runtime->value_stack, &instr->source);
+	struct h_value_stack_pop_result value1 = h_value_stack_pop(&runtime->value_stack, &instr->source);
+
+	continue_or_return_if_pop_error(value0);
+	continue_or_return_if_pop_error(value1);
+
+	continue_or_return_if_type_error(value0.value, H_NUMBER, instr->source);
+	continue_or_return_if_type_error(value1.value, H_NUMBER, instr->source);
+
+	struct h_value result_value = (struct h_value) {
+		.type         = H_NUMBER,
+		.value.number = cpow(value1.value.value.number, value0.value.value.number),
 	};
 
 	h_value_stack_push(&runtime->value_stack, &result_value);

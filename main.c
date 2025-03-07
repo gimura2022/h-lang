@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
 	struct h_runtime runtime    = {0};
 	struct h_error error        = {0};
 	char buf[512];
-	char text[]                 = "re + 10 * i 20";
+	char text[]                 = "^ 3 i";
 
 	error = h_parse_code(&instrs, text);
 	if (error.type != H_OK) {
