@@ -57,6 +57,7 @@ static struct h_error execute_arr_push(const struct h_instr* instr, struct h_run
 static struct h_error execute_arr_pop(const struct h_instr* instr, struct h_runtime* runtime);
 static struct h_error execute_arr_flip(const struct h_instr* instr, struct h_runtime* runtime);
 static struct h_error execute_arr_copy(const struct h_instr* instr, struct h_runtime* runtime);
+static struct h_error execute_arr_cat(const struct h_instr* instr, struct h_runtime* runtime);
 static struct h_error execute_equals(const struct h_instr* instr, struct h_runtime* runtime);
 static struct h_error execute_not_equals(const struct h_instr* instr, struct h_runtime* runtime);
 static struct h_error execute_more(const struct h_instr* instr, struct h_runtime* runtime);
@@ -136,6 +137,10 @@ static struct h_error execute_instr(const struct h_instr* instr, struct h_runtim
 
 	case H_ARR_COPY:
 		continue_or_return_if_error(execute_arr_copy(instr, runtime));
+		break;
+
+	case H_ARR_CAT:
+		continue_or_return_if_error(execute_arr_cat(instr, runtime));
 		break;
 
 	case H_EQUALS:
@@ -876,6 +881,35 @@ static struct h_error execute_pow(const struct h_instr* instr, struct h_runtime*
 	};
 
 	h_value_stack_push(&runtime->value_stack, &result_value);
+
+	return_ok();
+}
+
+static struct h_error execute_arr_cat(const struct h_instr* instr, struct h_runtime* runtime)
+{
+	struct h_value_stack_pop_result array0 = h_value_stack_pop(&runtime->value_stack, &instr->source);
+	struct h_value_stack_pop_result array1 = h_value_stack_pop(&runtime->value_stack, &instr->source);
+
+	continue_or_return_if_pop_error(array0);
+	continue_or_return_if_pop_error(array1);
+
+	continue_or_return_if_type_error(array0.value, H_ARRAY, instr->source);
+	continue_or_return_if_type_error(array1.value, H_ARRAY, instr->source);
+
+	struct h_value_stack result_array = {0};
+
+	for (int i = 0; i < array0.value.value.array.count; i++)
+		h_value_stack_push(&result_array, &array0.value.value.array.value[i]);
+
+	for (int i = 0; i < array1.value.value.array.count; i++)
+		h_value_stack_push(&result_array, &array1.value.value.array.value[i]);
+
+	struct h_value value = (struct h_value) {
+		.type        = H_ARRAY,
+		.value.array = result_array,
+	};
+
+	h_value_stack_push(&runtime->value_stack, &value);
 
 	return_ok();
 }

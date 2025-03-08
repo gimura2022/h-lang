@@ -144,6 +144,7 @@ enum h_instr_type {
 	H_ARR_POP,
 	H_ARR_FLIP,
 	H_ARR_COPY,
+	H_ARR_CAT,
 
 	H_EQUALS,
 	H_NOT_EQUALS,
@@ -248,6 +249,7 @@ enum h_lexer_tok_type {
 	H_TOK_ARR_POP,
 	H_TOK_ARR_FLIP,
 	H_TOK_ARR_COPY,
+	H_TOK_ARR_CAT,
 
 	H_TOK_EQUALS,
 	H_TOK_NOT_EQUALS,

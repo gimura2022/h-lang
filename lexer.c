@@ -43,8 +43,9 @@ void h_create_lexer(struct h_lexer* lexer, const char* text)
 		return;
 
 	if (strlen(lexer->crnt_line) > 1)
-		if (!next_line(lexer))
-			return;
+		if (lexer->crnt_line[0] == '/' && lexer->crnt_tok[1] == '/')
+			if (!next_line(lexer))
+				return;
 
 	reverse(lexer->crnt_line);
 
@@ -417,6 +418,11 @@ static struct h_error parse_tok(const char* text, struct h_lexer_tok* tok)
 
 	if (strcmp(text, "~:") == 0) {
 		tok->type = H_TOK_ARR_FLIP;
+		return_ok();
+	}
+
+	if (strcmp(text, "~|") == 0) {
+		tok->type = H_TOK_ARR_CAT;
 		return_ok();
 	}
 

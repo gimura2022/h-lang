@@ -184,6 +184,11 @@ static struct h_error parse_tok(const struct h_lexer_tok* tok, struct h_instr* i
 		instr->type = H_ARR_COPY;
 
 		break;
+
+	case H_TOK_ARR_CAT:
+		instr->type = H_ARR_CAT;
+
+		break;
 	
 	case H_TOK_EQUALS:
 		instr->type = H_EQUALS;
