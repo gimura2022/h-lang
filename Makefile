@@ -10,4 +10,4 @@ clean:
 	$(RM) h
 
 h: $(SOURCES)
-	$(CC) -o $< $(SOURCES)
+	$(CC) -o $@ $(SOURCES) $(LDFLAGS)
