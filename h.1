@@ -1,0 +1,52 @@
+.Dd March 8, 2025
+.Dt h 1
+.Os
+.
+.Sh NAME
+.Nm h
+.Nd H language frontend.
+.
+.Sh SYNOPSIS
+.Nm
+.Op Fl h
+.Op Fl c
+.Op Fl i Ar file
+.Op Fl o Ar file
+.Op Fl a Ar code
+.
+.Sh DESCRIPTION
+H language frontend.
+.Pp
+These are options you can pass to
+.Nm :
+.Bl -tag -width Ds
+.It Fl h
+Show help message.
+.It Fl c
+Compile text file to bytecode.
+.It Fl i Ar file
+Specify input file.
+.It Fl o Ar file
+Specify output file.
+.It Fl a Ar code
+Code, which will be executed before main code to define arguments of the main code
+.El
+.
+.Sh EXAMPLES
+For example you can add execute some code:
+.Bd -literal -offset indent
+$ cat example.hl
+^ ,
+$ h -i example.hl -a 10
+1e+10
+.Ed
+.
+.Sh SEE ALSO
+.Xr h 7
+.
+.Sh BUGS
+If you find any bug you can tell me about them in
+.Lk https://github.com/gimura2022/h-lang/issues here .
+.
+.Sh AUTHORS
+.An gimura2022 Aq Mt gimura0001@gmail.com
