@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <complex.h>
 
 #define H_MAX_SUMBOIL_NAME 64
@@ -306,5 +307,7 @@ void h_free_lexer(struct h_lexer* lexer);
 void h_create_error_message(const struct h_error* error, char* buf, size_t buf_len);
 
 void h_value_to_string_buf(const struct h_value* value, char* buf, size_t buf_size);
+void h_value_stack_to_string_buf(const struct h_value_stack* stack, char* buf, size_t buf_size);
+bool h_is_array_string(const struct h_value_stack* stack);
 
 #endif

@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
 	struct h_runtime runtime    = {0};
 	struct h_error error        = {0};
 	char buf[512];
-	char text[]                 = "^ 3 i";
+	char text[]                 = "\"Hello, world!\"";
 
 	error = h_parse_code(&instrs, text);
 	if (error.type != H_OK) {
@@ -26,8 +26,8 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	h_value_to_string_buf(&runtime.value_stack.value[0], buf, sizeof(buf));
-	printf("%s\n", buf);
+	h_value_stack_to_string_buf(&runtime.value_stack, buf, sizeof(buf));
+	printf("%s", buf);
 
 	h_instr_stack_free(&instrs);
 	h_sumboil_stack_free(&runtime.sumboil_stack);
