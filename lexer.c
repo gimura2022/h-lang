@@ -42,11 +42,6 @@ void h_create_lexer(struct h_lexer* lexer, const char* text)
 	if (lexer->crnt_line == NULL)
 		return;
 
-	if (strlen(lexer->crnt_line) > 1)
-		if (lexer->crnt_line[0] == '/' && lexer->crnt_tok[1] == '/')
-			if (!next_line(lexer))
-				return;
-
 	reverse(lexer->crnt_line);
 
 	lexer->crnt_tok = strtok_r(lexer->crnt_line, " ", &lexer->tok_save);
@@ -292,10 +287,6 @@ static bool next_line(struct h_lexer* lexer)
 
 	if (lexer->crnt_line == NULL)
 		return false;
-
-	if (strlen(lexer->crnt_line) > 1)
-		if (lexer->crnt_line[0] == '/' && lexer->crnt_tok[1] == '/')
-			return next_line(lexer);
 
 	reverse(lexer->crnt_line);
 

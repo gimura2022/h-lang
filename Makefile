@@ -10,6 +10,8 @@ OBJS += utils.o
 OBJS += vm.o
 
 LDLIBS += -lm
+LDFLAGS += -fPIC
+CFLAGS += $(LDFLAGS)
 
 .PHONY: all
 all: h libh.so libh.a
@@ -19,13 +21,13 @@ clean:
 	$(RM) $(OBJS) h libh.so libh.a
 
 libh.so: $(OBJS)
-	$(CC) -shared -o $@ $(LDFLAGS) $(LDLIBS) $(OBJS)
+	$(CC) -shared -o $@ $(OBJS) $(CFLAGS) $(LDFLAGS) $(LDLIBS)
 
 libh.a: $(OBJS)
 	$(AR) rcs $@ $(OBJS)
 
 h: h.c install_lib
-	$(CC) h.c -o h -lh $(LDLIBS)
+	$(CC) h.c -o h -lh $(LDLIBS) $(CFLAGS)
 
 .PHONY: install
 install: all

@@ -887,8 +887,8 @@ static struct h_error execute_pow(const struct h_instr* instr, struct h_runtime*
 
 static struct h_error execute_arr_cat(const struct h_instr* instr, struct h_runtime* runtime)
 {
-	struct h_value_stack_pop_result array0 = h_value_stack_pop(&runtime->value_stack, &instr->source);
 	struct h_value_stack_pop_result array1 = h_value_stack_pop(&runtime->value_stack, &instr->source);
+	struct h_value_stack_pop_result array0 = h_value_stack_pop(&runtime->value_stack, &instr->source);
 
 	continue_or_return_if_pop_error(array0);
 	continue_or_return_if_pop_error(array1);

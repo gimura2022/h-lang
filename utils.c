@@ -57,9 +57,9 @@ void h_value_to_string_buf(const struct h_value* value, char* buf, size_t buf_si
 
 		buf += snprintf(buf, buf_size, "[");
 
-		for (int i = value->value.array.count; i != 0; i--) {
+		for (int i = value->value.array.count - 1; i >= 0; i--) {
 			h_value_to_string_buf(&value->value.array.value[i], array_buf, sizeof(array_buf));
-			buf += snprintf(buf, buf_size, "%s", array_buf);
+			buf += snprintf(buf, buf_size, "%s ", array_buf);
 		}
 
 		buf += snprintf(buf, buf_size, "]");

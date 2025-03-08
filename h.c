@@ -48,9 +48,9 @@ static struct h_error read_instrs_text(const char* path, struct h_instr_stack* i
 
 	rewind(file);
 
-	char* text = malloc(size);
-	fread(text, sizeof(char), size, file);
-	text[size] = '\0';
+	char* text = malloc(size + 1);
+	size_t read_size = fread(text, sizeof(char), size, file);
+	text[read_size] = '\0';
 
 	fclose(file);
 
