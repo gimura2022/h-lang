@@ -10,3 +10,4 @@ clean:
 	$(RM) h
 
 h: $(SOURCES)
+	$(CC) -o $< $(SOURCES)
