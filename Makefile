@@ -33,3 +33,6 @@ install_lib: libh.so libh.a
 	install -m644 libh.a $(DESTDIR)/lib
 	install -m755 libh.so $(DESTDIR)/lib
 	install -m644 h.h $(DESTDIR)/include
+
+README: README.7
+	mandoc $< | col -b > $@

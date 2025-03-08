@@ -1,0 +1,26 @@
+README(7)	       Miscellaneous Information Manual		     README(7)
+
+NAME
+     h – H language frontend.
+
+DESCRIPTION
+     H language frontend.
+
+INSTALL
+     To compile and install run...
+
+	   sudo make
+	   sudo make install
+
+      ...but you need permision to write in DESTDIR
+
+EXAMPLES
+     See examples directory to get examples.
+
+SEE ALSO
+     h(1) h(7)
+
+AUTHORS
+     gimura2022 <gimura0001@gmail.com>
+
+Debian				 March 8, 2025				Debian
