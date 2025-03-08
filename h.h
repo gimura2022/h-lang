@@ -2,6 +2,7 @@
 #define _h_h
 
 #include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -66,6 +67,7 @@ enum h_error_type {
 	H_ERROR_SUMBOIL_NOT_FOUND_IN_VARIABLE_CREATING,
 	H_ERROR_APPLYING_REDUCE_TO_ONE_VALUE_ARRAY,
 	H_ERROR_SUMBOIL_NOT_FOUND,
+	H_ERROR_BYTECODE_READ_ERROR,
 };
 
 enum h_source_type {
@@ -309,5 +311,8 @@ void h_create_error_message(const struct h_error* error, char* buf, size_t buf_l
 void h_value_to_string_buf(const struct h_value* value, char* buf, size_t buf_size);
 void h_value_stack_to_string_buf(const struct h_value_stack* stack, char* buf, size_t buf_size);
 bool h_is_array_string(const struct h_value_stack* stack);
+
+struct h_error h_read_bytecode(FILE* file, struct h_instr_stack* stack);
+void h_write_bytecode(FILE* file, const struct h_instr_stack* stack);
 
 #endif

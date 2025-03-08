@@ -10,13 +10,9 @@ int main(int argc, char* argv[])
 	char buf[512];
 	char text[]                 = "\"Hello, world!\"";
 
-	error = h_parse_code(&instrs, text);
-	if (error.type != H_OK) {
-		h_create_error_message(&error, buf, sizeof(buf));
-		printf("%s", buf);
 
-		return 1;
-	}
+	FILE* file = fopen("file.hb", "rb");
+	h_read_bytecode(file, &instrs);
 
 	error = h_execute_instr_stack(&instrs, &runtime);
 	if (error.type != H_OK) {
