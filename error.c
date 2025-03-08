@@ -50,6 +50,8 @@ static const char* get_error_message(enum h_error_type type)
 	case H_ERROR_SUMBOIL_NOT_FOUND: return "Sumboil not found";
 	case H_ERROR_APPLYING_REDUCE_TO_ONE_VALUE_ARRAY:
 		return "Can't apply reduce to array with value count less 2";
+	case H_ERROR_BYTECODE_READ_ERROR:
+		return "Can't read bytecode, file format corrupted";
 	}
 }
 
