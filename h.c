@@ -24,6 +24,7 @@ static struct h_error read_instrs_text(const char* path, struct h_instr_stack* i
 
 	char* text = malloc(size);
 	fread(text, sizeof(char), size, file);
+	text[size] = '\0';
 
 	fclose(file);
 
@@ -65,7 +66,7 @@ static void print_error(const struct h_error* error)
 
 	h_create_error_message(error, buf, MAX_ERROR_LENGTH);
 
-	fprintf(stderr, "%s\n", buf);
+	fprintf(stderr, "%s", buf);
 }
 
 #define MAX_STACK_VALUE_LENGHT 2048
