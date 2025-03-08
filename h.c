@@ -5,6 +5,19 @@
 
 #include "h.h"
 
+#define SMALL_USAGE "usage: [-h][-c][-i file][-o file][-a code]\n"
+#define USAGE \
+	"  -h		print help message\n" \
+	"  -c		compile source file into bytecode\n" \
+	"  -i file 	specify input file\n" \
+	"  -o file	specify output file\n" \
+	"  -a code	code executed before main program for specify arguments\n"
+
+static void usage(FILE* stream, bool small)
+{
+	fprintf(stream, small ? SMALL_USAGE : SMALL_USAGE USAGE);
+}
+
 #define continue_or_return_if_error(x) ({ struct h_error __x = (x); if (__x.type != H_OK) return __x; })
 #define return_ok() return (struct h_error) { .type = H_OK }
 
@@ -79,7 +92,7 @@ int main(int argc, char* argv[])
 	bool compile_mode     = false;
 
 	char c;
-	while ((c = getopt(argc, argv, "co:i:a:")) != -1) {
+	while ((c = getopt(argc, argv, "co:i:a:h")) != -1) {
 		switch (c) {
 		case 'c':
 			compile_mode = true;
@@ -97,7 +110,12 @@ int main(int argc, char* argv[])
 			prog_args = optarg;
 			break;
 
+		case 'h':
+			usage(stdout, false);
+			exit(0);
+
 		case '?':
+			usage(stderr, true);
 			break;
 		}
 	}
